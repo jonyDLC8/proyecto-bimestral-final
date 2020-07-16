@@ -1,0 +1,112 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO.Ports;
+
+namespace ConsoleApp1
+{
+
+    class Program
+    {
+        static char[,] x = new char[3, 3];
+        static SerialPort ard = new SerialPort("COM5", 9600);
+        static void Main(string[] args)
+        {
+            string Menu;
+            ard.Parity = Parity.None;
+            ard.StopBits = StopBits.One;
+            ard.DataBits = 8;
+            ard.Handshake = Handshake.None;
+            ard.RtsEnable = true;
+            Menu = Console.ReadLine();
+            while (Menu != "4")
+            ard.Open();
+            {
+            Menu = Console.ReadLine();
+            Console.WriteLine("Opciones de encendido de la led");
+            Console.WriteLine("1. Encender led No.1");
+            Console.WriteLine("2. Encender led No.2");
+            Console.WriteLine("3. Encender led No.3");
+            Console.WriteLine("4. Salir de proyecto");
+            while(Menu != "4") 
+            {
+                if (Menu == "1")
+                {
+                 
+                            if (ard.IsOpen)
+                            {
+                                Console.WriteLine("COM abierto");
+                                byte[] data = Encoding.ASCII.GetBytes("S");
+                                ard.Write(data, 0, data.Length);
+
+                                ard.Write("0");
+                                
+                            }
+                            else
+                            {
+                                Console.WriteLine("El COM esta cerrado");
+                            }
+                            
+                }
+                if (Menu == "2")
+                {
+                    
+                    if (ard.IsOpen)
+                    {
+                        Console.WriteLine("COM abierto");
+                        byte[] data = Encoding.ASCII.GetBytes("E");
+                        ard.Write(data, 0, data.Length);
+
+                        ard.Write("A");
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("El COM esta cerrado");
+                    }
+                   
+                }
+                if (Menu == "2")
+                {
+                    
+                    if (ard.IsOpen)
+                    {
+                        Console.WriteLine("COM abierto");
+                        byte[] data = Encoding.ASCII.GetBytes("e");
+                        ard.Write(data, 0, data.Length);
+
+                        ard.Write("a");
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("El COM esta cerrado");
+                    }
+                   
+                }
+                if (Menu == "4")
+                {
+                    Console.WriteLine("Gracias por preferir nuestros servicios de encender leds!");
+                    Console.WriteLine("Le deseamos un buen dia, hasta pronto!");
+                    ard.Close();
+                    break;
+
+                }
+
+
+            }
+            }
+            
+           
+
+            
+
+        }
+        
+    }
+    // Jonathan Alexander De La Cruz, Pablo Jose Cardona Sanchez. Emilio Fernando Schaad Lickez, 
+    //https://www.tinkercad.com/things/eYfZfdCHiHx
+    
+}
